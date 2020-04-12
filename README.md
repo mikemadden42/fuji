@@ -1,0 +1,2 @@
+# fuji
+AppleScript collection
