@@ -20,6 +20,6 @@ tell application "Slack" to quit
 tell application "Spotify" to quit
 tell application "Sublime Text" to quit
 tell application "TV" to quit
-tell application "Terminal" to quit
+-- tell application "Terminal" to quit
 tell application "Visual Studio Code" to quit
 -- tell application "iTerm" to quit
