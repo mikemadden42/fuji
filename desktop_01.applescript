@@ -1,5 +1,5 @@
 tell application "Books" to activate
-tell application "Brave" to activate
+tell application "Brave Browser" to activate
 -- tell application "Firefox" to activate
 -- tell application "Google Chrome" to activate
 -- tell application "Kindle" to activate
