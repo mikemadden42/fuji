@@ -5,7 +5,7 @@ tell application "Brave Browser" to activate
 -- tell application "Kindle" to activate
 tell application "MacPass" to activate
 tell application "Messenger" to activate
-tell application "Microsoft Remote Desktop" to activate
+-- tell application "Microsoft Remote Desktop" to activate
 -- tell application "Safari" to activate
 tell application "Signal" to activate
 tell application "Sublime Text" to activate
