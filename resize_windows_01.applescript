@@ -14,7 +14,7 @@ tell application "System Events" to tell process "Brave Browser"
 
 end tell
 
-tell application "System Events" to tell process "MacPass"
+tell application "System Events" to tell process "KeePassXC"
 	tell window 1
 		set position to {400, 200}
 		set size to {960, 600}
