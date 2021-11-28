@@ -45,6 +45,6 @@ end tell
 tell application "System Events" to tell process "Terminal"
 	tell window 1
 		set position to {100, 100}
-		set size to {960, 900}
+		-- set size to {960, 900}
 	end tell
 end tell
