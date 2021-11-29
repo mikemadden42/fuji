@@ -1,7 +1,7 @@
 -- https://apple.stackexchange.com/questions/106388/osascript-set-bounds-of-window-not-working-after-mavericks-upgrade
 tell application "System Events" to tell process "iTerm2"
 	tell window 1
-		set position to {0, 400}
+		set position to {50, 400}
 		set size to {960, 900}
 	end tell
 end tell
