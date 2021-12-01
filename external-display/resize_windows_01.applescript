@@ -14,6 +14,13 @@ tell application "System Events" to tell process "Brave Browser"
 
 end tell
 
+tell application "System Events" to tell process "Books"
+	tell window 1
+		set position to {1200, 300}
+		-- set size to {960, 600}
+	end tell
+end tell
+
 tell application "System Events" to tell process "KeePassXC"
 	tell window 1
 		set position to {1200, 800}
