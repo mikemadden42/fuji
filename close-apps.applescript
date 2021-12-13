@@ -2,7 +2,7 @@ tell application "Books" to quit
 -- tell application "Brave" to quit
 tell application "Calendar" to quit
 tell application "Firefox" to quit
-tell application "Google Chrome" to quit
+-- tell application "Google Chrome" to quit
 tell application "Intel Power Gadget" to quit
 tell application "Kindle" to quit
 tell application "MacPass" to quit
