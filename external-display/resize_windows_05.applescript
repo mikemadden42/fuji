@@ -5,3 +5,10 @@ tell application "System Events" to tell process "Signal"
 		set size to {1000, 650}
 	end tell
 end tell
+
+tell application "System Events" to tell process "Messenger"
+	tell window 1
+		set position to {500, 550}
+		set size to {1000, 650}
+	end tell
+end tell
