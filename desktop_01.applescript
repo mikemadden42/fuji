@@ -1,3 +1,4 @@
+tell application "Alacritty" to activate
 tell application "Books" to activate
 tell application "Brave Browser" to activate
 -- tell application "Firefox" to activate

@@ -1,3 +1,4 @@
+-- tell application "Alacritty" to quit
 tell application "Books" to quit
 -- tell application "Brave" to quit
 tell application "Calendar" to quit
