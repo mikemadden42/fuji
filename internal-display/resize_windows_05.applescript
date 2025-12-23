@@ -6,7 +6,7 @@ tell application "System Events" to tell process "Signal"
 	end tell
 end tell
 
-tell application "System Events" to tell process "Messenger"
+tell application "System Events" to tell process "WhatsApp"
 	tell window 1
 		set position to {350, 200}
 		set size to {1000, 650}
