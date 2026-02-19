@@ -36,24 +36,21 @@ tell application "System Events"
 		end tell
 	end tell
 
-	-- --- Column 2: Center-Left (Messages, Reminders) ---
-    -- We'll place Messages and Reminders side-by-side in this column to save vertical space.
+	-- --- Column 2: Center (Messages, Reminders) ---
 
 	tell process "Messages"
 		tell window 1
-			-- Messages will be in the top-left of this central area.
+			-- Messages will be in the top-center.
 			set position to {centerColumnX, padding}
-			set size to {round (standardWidth / 2) - round (verticalSpacing / 2), itemHeight} -- Half width
+			set size to {standardWidth, itemHeight} 
 		end tell
 	end tell
 
 	tell process "Reminders"
 		tell window 1
-			-- Reminders will be next to Messages in the central area.
-			-- X position is Messages's X + Messages's Width + spacing
-			set remindersX to centerColumnX + (round (standardWidth / 2) - round (verticalSpacing / 2)) + verticalSpacing
-			set position to {remindersX, padding}
-			set size to {round (standardWidth / 2) - round (verticalSpacing / 2), itemHeight} -- Half width
+			-- Reminders below Messages.
+			set position to {centerColumnX, padding + itemHeight + verticalSpacing}
+			set size to {standardWidth, itemHeight} 
 		end tell
 	end tell
 
