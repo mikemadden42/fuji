@@ -28,10 +28,10 @@ tell application "System Events"
 		end tell
 	end tell
 
-	-- --- Messenger: Placed on the right side of the central block ---
-	tell process "Messenger"
+	-- --- WhatsApp: Placed on the right side of the central block ---
+	tell process "WhatsApp"
 		tell window 1
-			-- Position Messenger next to Signal, with padding in between
+			-- Position WhatsApp next to Signal, with padding in between
 			set position to {startX + appWidth + padding, padding}
 			set size to {appWidth, appHeight}
 		end tell
