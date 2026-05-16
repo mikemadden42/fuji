@@ -1,75 +1,105 @@
 -- Set this value based on your ultrawide monitor's resolution.
 -- A common ultrawide resolution is 3440x1440 or 2560x1080.
--- For example, if your resolution is 3440 pixels wide.
 property screenWidth: 3440 -- REPLACE WITH YOUR MONITOR'S ACTUAL WIDTH
-property screenHeight: 1440 -- REPLACE WITH YOUR MONITOR'S ACTUAL HEIGHT (e.g., 1440 for 3440x1440)
+property screenHeight: 1440 -- REPLACE WITH YOUR MONITOR'S ACTUAL HEIGHT
 
 -- Define some consistent values for easier adjustments
 property padding: 50 -- General padding from screen edges
-property verticalSpacing: 60 -- Spacing between vertically stacked windows
-property standardWidth: 960 -- A good standard width for many apps
+property horizontalSpacing: 60 -- Spacing between columns
+property verticalSpacing: 60 -- Spacing between rows
 
--- Calculate a suitable height for two items stacked vertically, considering padding and spacing
--- (screenHeight - topPadding - bottomPadding - verticalSpacing_between_items) / 2_items
-property itemHeight: round ((screenHeight - (2 * padding) - verticalSpacing) / 2)
+-- Compute cell dimensions to fill a 3x2 grid across the screen
+property usableWidth: screenWidth - (2 * padding)
+property usableHeight: screenHeight - (2 * padding)
+property columnWidth: (usableWidth - (2 * horizontalSpacing)) div 3
+property itemHeight: (usableHeight - verticalSpacing) div 2
 
--- Calculate X-positions for different columns
+-- Column X-positions
 property leftColumnX: padding
-property centerColumnX: round (screenWidth / 2) - round (standardWidth / 2)
-property rightColumnX: screenWidth - standardWidth - padding
+property centerColumnX: padding + columnWidth + horizontalSpacing
+property rightColumnX: padding + (2 * (columnWidth + horizontalSpacing))
+
+-- Row Y-positions
+property topRowY: padding
+property bottomRowY: padding + itemHeight + verticalSpacing
 
 tell application "System Events"
 	-- --- Column 1: Left Side (Mail, Slack) ---
 
-	tell process "Mail"
-		tell window 1
-			set position to {leftColumnX, padding}
-			set size to {standardWidth, itemHeight}
+	try
+		activate application "Mail"
+		tell process "Mail"
+			tell window 1
+				set position to {leftColumnX, topRowY}
+				set size to {columnWidth, itemHeight}
+			end tell
 		end tell
-	end tell
+	on error errMsg
+		display notification "Could not arrange Mail: " & errMsg with title "AppleScript Error"
+	end try
 
-	tell process "Slack"
-		tell window 1
-			-- Slack below Mail
-			set position to {leftColumnX, padding + itemHeight + verticalSpacing}
-			set size to {standardWidth, itemHeight}
+	try
+		activate application "Slack"
+		tell process "Slack"
+			tell window 1
+				set position to {leftColumnX, bottomRowY}
+				set size to {columnWidth, itemHeight}
+			end tell
 		end tell
-	end tell
+	on error errMsg
+		display notification "Could not arrange Slack: " & errMsg with title "AppleScript Error"
+	end try
 
 	-- --- Column 2: Center (Messages, Reminders) ---
 
-	tell process "Messages"
-		tell window 1
-			-- Messages will be in the top-center.
-			set position to {centerColumnX, padding}
-			set size to {standardWidth, itemHeight} 
+	try
+		activate application "Messages"
+		tell process "Messages"
+			tell window 1
+				set position to {centerColumnX, topRowY}
+				set size to {columnWidth, itemHeight}
+			end tell
 		end tell
-	end tell
+	on error errMsg
+		display notification "Could not arrange Messages: " & errMsg with title "AppleScript Error"
+	end try
 
-	tell process "Reminders"
-		tell window 1
-			-- Reminders below Messages.
-			set position to {centerColumnX, padding + itemHeight + verticalSpacing}
-			set size to {standardWidth, itemHeight} 
+	try
+		activate application "Reminders"
+		tell process "Reminders"
+			tell window 1
+				set position to {centerColumnX, bottomRowY}
+				set size to {columnWidth, itemHeight}
+			end tell
 		end tell
-	end tell
+	on error errMsg
+		display notification "Could not arrange Reminders: " & errMsg with title "AppleScript Error"
+	end try
 
 	-- --- Column 3: Right Side (Calendar, Notes) ---
 
-	tell process "Calendar"
-		tell window 1
-			-- Calendar goes on the top right.
-			set position to {rightColumnX, padding}
-			set size to {standardWidth, itemHeight}
+	try
+		activate application "Calendar"
+		tell process "Calendar"
+			tell window 1
+				set position to {rightColumnX, topRowY}
+				set size to {columnWidth, itemHeight}
+			end tell
 		end tell
-	end tell
+	on error errMsg
+		display notification "Could not arrange Calendar: " & errMsg with title "AppleScript Error"
+	end try
 
-	tell process "Notes"
-		tell window 1
-			-- Notes below Calendar.
-			set position to {rightColumnX, padding + itemHeight + verticalSpacing}
-			set size to {standardWidth, itemHeight}
+	try
+		activate application "Notes"
+		tell process "Notes"
+			tell window 1
+				set position to {rightColumnX, bottomRowY}
+				set size to {columnWidth, itemHeight}
+			end tell
 		end tell
-	end tell
+	on error errMsg
+		display notification "Could not arrange Notes: " & errMsg with title "AppleScript Error"
+	end try
 
 end tell
