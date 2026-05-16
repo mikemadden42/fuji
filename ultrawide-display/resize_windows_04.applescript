@@ -6,8 +6,8 @@ property screenHeight : 1440 -- REPLACE WITH YOUR MONITOR'S ACTUAL HEIGHT
 property screenPaddingTop : 50
 property screenPaddingBottom : 50
 property screenPaddingLeft : 50
--- Larger padding on the right to leave room for desktop icons (adjust as needed)
-property screenPaddingRight : 600 
+-- Padding on the right to leave room for desktop icons (adjust as needed)
+property screenPaddingRight : 200
 
 -- Define spacing BETWEEN the 2x2 grid cells
 property gridGapX : 20
@@ -80,13 +80,15 @@ tell application "System Events"
 	end try
 	
 	-- --- Voice Memos: Bottom-Right Cell (Row 2, Column 2) ---
-	set vrX to my getXPosition(2)
-	set vrY to my getYPosition(2)
+	set voiceMemosX to my getXPosition(2)
+	set voiceMemosY to my getYPosition(2)
 	try
-		activate application "Voice Memos" -- Corrected app name
-		tell process "Voice Memos" -- Corrected app name
+		-- Use the bundle name "VoiceMemos" (no space) — inside a System Events
+		-- tell block, the display name "Voice Memos" fails to resolve.
+		activate application "VoiceMemos"
+		tell process "VoiceMemos"
 			tell window 1
-				set position to {vrX, vrY}
+				set position to {voiceMemosX, voiceMemosY}
 				set size to {cellWidth, cellHeight}
 			end tell
 		end tell

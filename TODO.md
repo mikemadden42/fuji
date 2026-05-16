@@ -2,12 +2,6 @@
 
 ## Bugs
 
-- [ ] **Fix `desktop_04.applescript:6` — wrong app name.**
-  `tell application "VoiceMemos"` should be `"Voice Memos"` (with a space).
-  Commit `98c0350` fixed this in
-  `ultrawide-display/resize_windows_04.applescript` but missed the launcher,
-  so Desktop 4 silently fails to activate the app.
-
 - [ ] **Sync `close-apps.applescript` with the activate scripts.**
   - Quits `Kindle`, but `desktop_01.applescript` activates `Amazon Kindle`
     (different app).
