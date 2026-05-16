@@ -7,34 +7,41 @@ property screenHeight: 1440 -- REPLACE WITH YOUR MONITOR'S ACTUAL HEIGHT (e.g., 
 -- Define some consistent values for easier adjustments
 property padding: 50 -- General padding from screen edges and between windows
 property appWidth: 900 -- A good width for messaging apps
-property appHeight: 800 -- A good height for messaging apps
+property appHeight: 1200 -- Use more of the 1440px vertical space
 
--- --- CORRECTED: These property calculations are now at the top level ---
 -- Calculate the total width needed for both apps plus the inner padding
 property totalAppsWidth: (appWidth * 2) + padding
 
--- Calculate the starting X position to center both apps as a block
+-- Center both apps as a block, both horizontally and vertically
 property startX: round ((screenWidth - totalAppsWidth) / 2)
--- --- END CORRECTED ---
+property startY: round ((screenHeight - appHeight) / 2)
 
 
 tell application "System Events"
 	-- --- Signal: Placed on the left side of the central block ---
-	tell process "Signal"
-		tell window 1
-			-- Position Signal starting from the calculated startX
-			set position to {startX, padding}
-			set size to {appWidth, appHeight}
+	try
+		activate application "Signal"
+		tell process "Signal"
+			tell window 1
+				set position to {startX, startY}
+				set size to {appWidth, appHeight}
+			end tell
 		end tell
-	end tell
+	on error errMsg
+		display notification "Could not arrange Signal: " & errMsg with title "AppleScript Error"
+	end try
 
 	-- --- WhatsApp: Placed on the right side of the central block ---
-	tell process "WhatsApp"
-		tell window 1
-			-- Position WhatsApp next to Signal, with padding in between
-			set position to {startX + appWidth + padding, padding}
-			set size to {appWidth, appHeight}
+	try
+		activate application "WhatsApp"
+		tell process "WhatsApp"
+			tell window 1
+				set position to {startX + appWidth + padding, startY}
+				set size to {appWidth, appHeight}
+			end tell
 		end tell
-	end tell
+	on error errMsg
+		display notification "Could not arrange WhatsApp: " & errMsg with title "AppleScript Error"
+	end try
 
 end tell
