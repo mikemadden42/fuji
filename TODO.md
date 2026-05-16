@@ -2,15 +2,6 @@
 
 ## Bugs
 
-- [ ] **Sync `close-apps.applescript` with the activate scripts.**
-  - Quits `Kindle`, but `desktop_01.applescript` activates `Amazon Kindle`
-    (different app).
-  - Quits `Firefox`, `MacPass`, `Messenger`, `Microsoft Remote Desktop`,
-    `Spotify` — none of which any current `desktop_*` script launches.
-  - Leaves `Brave` commented out, even though `desktop_01` activates
-    `Brave Browser`.
-  - Missing: `WhatsApp`, `KeePassXC`.
-
 - [ ] **Fix colliding window positions in
   `internal-display/resize_windows_03.applescript`.**
   Mail `{40, 120}`, Messages `{300, 150}`, Notes `{100, 80}`, Reminders/Slack
@@ -40,14 +31,9 @@
 - [ ] **Unify property syntax in ultrawide scripts.** Mix of `property foo:
   bar` and `property foo : bar` — pick one.
 
-- [ ] **Add `try`/`on error` blocks consistently.**
-  `ultrawide-display/resize_windows_04.applescript` is the only file that
-  handles missing apps gracefully; the others crash hard if an app isn't
-  running.
-
-- [ ] **Document `screenPaddingRight: 600` in
-  `ultrawide-display/resize_windows_04.applescript`.** "Leave room for
-  desktop icons" is a magic number — explain or compute it.
+- [ ] **Add `try`/`on error` blocks to internal- and external-display
+  scripts.** All five ultrawide scripts now handle missing apps gracefully;
+  the other display profiles still crash hard if an app isn't running.
 
 - [ ] **Comment `set_volume.applescript`.** Hardcoded `34` with no rationale;
   a one-line comment would justify it.
