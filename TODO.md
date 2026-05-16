@@ -12,10 +12,6 @@
 
 ## Improvements
 
-- [ ] **Expand `README.md`.** Document the desktop/display matrix, the 1→5
-  numbering convention, and how to pick a display folder. Current example
-  references `resize_windows_01.applescript` without a path.
-
 - [ ] **Add an orchestrator.** A single top-level script taking a display name
   (e.g. `osascript run_all.applescript ultrawide`) would remove the friction
   of chaining one activate + one resize across 5 desktops × 3 display
