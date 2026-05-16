@@ -34,6 +34,3 @@
 - [ ] **Add `try`/`on error` blocks to internal- and external-display
   scripts.** All five ultrawide scripts now handle missing apps gracefully;
   the other display profiles still crash hard if an app isn't running.
-
-- [ ] **Comment `set_volume.applescript`.** Hardcoded `34` with no rationale;
-  a one-line comment would justify it.
