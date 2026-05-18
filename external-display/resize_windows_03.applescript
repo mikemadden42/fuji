@@ -1,42 +1,104 @@
--- https://apple.stackexchange.com/questions/106388/osascript-set-bounds-of-window-not-working-after-mavericks-upgrade
-tell application "System Events" to tell process "Calendar"
-	tell window 1
-		set position to {1000, 600}
-		set size to {960, 600}
-	end tell
-end tell
+-- External display: Dell U2722D, 2560x1440.
+property screenWidth: 2560
+property screenHeight: 1440
 
-tell application "System Events" to tell process "Mail"
-	tell window 1
-		set position to {40, 120}
-		set size to {960, 600}
-	end tell
-end tell
+-- Define some consistent values for easier adjustments
+property padding: 50 -- General padding from screen edges
+property horizontalSpacing: 60 -- Spacing between columns
+property verticalSpacing: 60 -- Spacing between rows
 
-tell application "System Events" to tell process "Messages"
-	tell window 1
-		set position to {1000, 150}
-		set size to {960, 600}
-	end tell
-end tell
+-- Compute cell dimensions to fill a 3x2 grid across the screen
+property usableWidth: screenWidth - (2 * padding)
+property usableHeight: screenHeight - (2 * padding)
+property columnWidth: (usableWidth - (2 * horizontalSpacing)) div 3
+property itemHeight: (usableHeight - verticalSpacing) div 2
 
-tell application "System Events" to tell process "Notes"
-	tell window 1
-		set position to {100, 80}
-		set size to {960, 600}
-	end tell
-end tell
+-- Column X-positions
+property leftColumnX: padding
+property centerColumnX: padding + columnWidth + horizontalSpacing
+property rightColumnX: padding + (2 * (columnWidth + horizontalSpacing))
 
-tell application "System Events" to tell process "Reminders"
-	tell window 1
-		set position to {700, 100}
-		set size to {960, 600}
-	end tell
-end tell
+-- Row Y-positions
+property topRowY: padding
+property bottomRowY: padding + itemHeight + verticalSpacing
 
-tell application "System Events" to tell process "Slack"
-	tell window 1
-		set position to {100, 400}
-		set size to {960, 900}
-	end tell
+tell application "System Events"
+	-- --- Column 1: Left Side (Mail, Slack) ---
+
+	try
+		activate application "Mail"
+		tell process "Mail"
+			tell window 1
+				set position to {leftColumnX, topRowY}
+				set size to {columnWidth, itemHeight}
+			end tell
+		end tell
+	on error errMsg
+		display notification "Could not arrange Mail: " & errMsg with title "AppleScript Error"
+	end try
+
+	try
+		activate application "Slack"
+		tell process "Slack"
+			tell window 1
+				set position to {leftColumnX, bottomRowY}
+				set size to {columnWidth, itemHeight}
+			end tell
+		end tell
+	on error errMsg
+		display notification "Could not arrange Slack: " & errMsg with title "AppleScript Error"
+	end try
+
+	-- --- Column 2: Center (Messages, Reminders) ---
+
+	try
+		activate application "Messages"
+		tell process "Messages"
+			tell window 1
+				set position to {centerColumnX, topRowY}
+				set size to {columnWidth, itemHeight}
+			end tell
+		end tell
+	on error errMsg
+		display notification "Could not arrange Messages: " & errMsg with title "AppleScript Error"
+	end try
+
+	try
+		activate application "Reminders"
+		tell process "Reminders"
+			tell window 1
+				set position to {centerColumnX, bottomRowY}
+				set size to {columnWidth, itemHeight}
+			end tell
+		end tell
+	on error errMsg
+		display notification "Could not arrange Reminders: " & errMsg with title "AppleScript Error"
+	end try
+
+	-- --- Column 3: Right Side (Calendar, Notes) ---
+
+	try
+		activate application "Calendar"
+		tell process "Calendar"
+			tell window 1
+				set position to {rightColumnX, topRowY}
+				set size to {columnWidth, itemHeight}
+			end tell
+		end tell
+	on error errMsg
+		display notification "Could not arrange Calendar: " & errMsg with title "AppleScript Error"
+	end try
+
+	try
+		activate application "Notes"
+		tell process "Notes"
+			tell window 1
+				set position to {rightColumnX, bottomRowY}
+				set size to {columnWidth, itemHeight}
+			end tell
+		end tell
+	on error errMsg
+		display notification "Could not arrange Notes: " & errMsg with title "AppleScript Error"
+	end try
+
 end tell
