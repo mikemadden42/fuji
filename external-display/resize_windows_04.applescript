@@ -1,24 +1,24 @@
 -- External display: Dell U2722D, 2560x1440.
-property screenWidth : 2560
-property screenHeight : 1440
+property screenWidth: 2560
+property screenHeight: 1440
 
 -- Define padding from screen edges
-property screenPaddingTop : 50
-property screenPaddingBottom : 50
-property screenPaddingLeft : 50
-property screenPaddingRight : 50
+property screenPaddingTop: 50
+property screenPaddingBottom: 50
+property screenPaddingLeft: 50
+property screenPaddingRight: 50
 
 -- Define spacing BETWEEN the 2x2 grid cells
-property gridGapX : 20
-property gridGapY : 20
+property gridGapX: 20
+property gridGapY: 20
 
 -- Calculate usable dimensions for the grid
-property usableWidth : screenWidth - screenPaddingLeft - screenPaddingRight
-property usableHeight : screenHeight - screenPaddingTop - screenPaddingBottom
+property usableWidth: screenWidth - screenPaddingLeft - screenPaddingRight
+property usableHeight: screenHeight - screenPaddingTop - screenPaddingBottom
 
 -- Calculate individual cell dimensions using integer division (div) to prevent decimal errors
-property cellWidth : (usableWidth - gridGapX) div 2
-property cellHeight : (usableHeight - gridGapY) div 2
+property cellWidth: (usableWidth - gridGapX) div 2
+property cellHeight: (usableHeight - gridGapY) div 2
 
 -- Helper to calculate X position for a given column (1-indexed)
 on getXPosition(colIndex)

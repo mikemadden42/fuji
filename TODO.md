@@ -13,8 +13,3 @@
   config files (or derive at runtime — note that
   `desktop_size.applescript` only reports the primary display's Finder
   bounds, so it would need expanding to handle multi-screen setups).
-
-## Style / Polish
-
-- [ ] **Unify property syntax in ultrawide scripts.** Mix of `property
-  foo: bar` and `property foo : bar` — pick one. `_04` is the outlier.

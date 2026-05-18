@@ -1,24 +1,24 @@
 -- Internal display: 14" MacBook Pro, 3024x1964 @ 2x (logical 1512x982).
-property screenWidth : 1512
-property screenHeight : 982
+property screenWidth: 1512
+property screenHeight: 982
 
 -- Define padding from screen edges
-property screenPaddingTop : 40
-property screenPaddingBottom : 30
-property screenPaddingLeft : 30
-property screenPaddingRight : 30
+property screenPaddingTop: 40
+property screenPaddingBottom: 30
+property screenPaddingLeft: 30
+property screenPaddingRight: 30
 
 -- Define spacing BETWEEN the 2x2 grid cells
-property gridGapX : 15
-property gridGapY : 15
+property gridGapX: 15
+property gridGapY: 15
 
 -- Calculate usable dimensions for the grid
-property usableWidth : screenWidth - screenPaddingLeft - screenPaddingRight
-property usableHeight : screenHeight - screenPaddingTop - screenPaddingBottom
+property usableWidth: screenWidth - screenPaddingLeft - screenPaddingRight
+property usableHeight: screenHeight - screenPaddingTop - screenPaddingBottom
 
 -- Calculate individual cell dimensions using integer division (div) to prevent decimal errors
-property cellWidth : (usableWidth - gridGapX) div 2
-property cellHeight : (usableHeight - gridGapY) div 2
+property cellWidth: (usableWidth - gridGapX) div 2
+property cellHeight: (usableHeight - gridGapY) div 2
 
 -- Helper to calculate X position for a given column (1-indexed)
 on getXPosition(colIndex)

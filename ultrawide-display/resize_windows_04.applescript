@@ -1,25 +1,25 @@
 -- Set these values based on your ultrawide monitor's resolution.
-property screenWidth : 3440 -- REPLACE WITH YOUR MONITOR'S ACTUAL WIDTH
-property screenHeight : 1440 -- REPLACE WITH YOUR MONITOR'S ACTUAL HEIGHT
+property screenWidth: 3440 -- REPLACE WITH YOUR MONITOR'S ACTUAL WIDTH
+property screenHeight: 1440 -- REPLACE WITH YOUR MONITOR'S ACTUAL HEIGHT
 
 -- Define padding from screen edges
-property screenPaddingTop : 50
-property screenPaddingBottom : 50
-property screenPaddingLeft : 50
+property screenPaddingTop: 50
+property screenPaddingBottom: 50
+property screenPaddingLeft: 50
 -- Padding on the right to leave room for desktop icons (adjust as needed)
-property screenPaddingRight : 200
+property screenPaddingRight: 200
 
 -- Define spacing BETWEEN the 2x2 grid cells
-property gridGapX : 20
-property gridGapY : 20
+property gridGapX: 20
+property gridGapY: 20
 
 -- Calculate usable dimensions for the grid
-property usableWidth : screenWidth - screenPaddingLeft - screenPaddingRight
-property usableHeight : screenHeight - screenPaddingTop - screenPaddingBottom
+property usableWidth: screenWidth - screenPaddingLeft - screenPaddingRight
+property usableHeight: screenHeight - screenPaddingTop - screenPaddingBottom
 
 -- Calculate individual cell dimensions using integer division (div) to prevent decimal errors
-property cellWidth : (usableWidth - gridGapX) div 2
-property cellHeight : (usableHeight - gridGapY) div 2
+property cellWidth: (usableWidth - gridGapX) div 2
+property cellHeight: (usableHeight - gridGapY) div 2
 
 -- Helper to calculate X position for a given column (1-indexed)
 on getXPosition(colIndex)
