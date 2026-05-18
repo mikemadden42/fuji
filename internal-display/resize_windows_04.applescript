@@ -1,21 +1,98 @@
--- https://apple.stackexchange.com/questions/106388/osascript-set-bounds-of-window-not-working-after-mavericks-upgrade
-tell application "System Events" to tell process "Music"
-	tell window 1
-		set position to {400, 200}
-		set size to {1000, 650}
-	end tell
-end tell
+-- Internal display: 14" MacBook Pro, 3024x1964 @ 2x (logical 1512x982).
+property screenWidth : 1512
+property screenHeight : 982
 
-tell application "System Events" to tell process "TV"
-	tell window 1
-		set position to {40, 120}
-		set size to {1000, 650}
-	end tell
-end tell
+-- Define padding from screen edges
+property screenPaddingTop : 40
+property screenPaddingBottom : 30
+property screenPaddingLeft : 30
+property screenPaddingRight : 30
 
-tell application "System Events" to tell process "Photos"
-	tell window 1
-		set position to {300, 150}
-		set size to {1000, 650}
-	end tell
+-- Define spacing BETWEEN the 2x2 grid cells
+property gridGapX : 15
+property gridGapY : 15
+
+-- Calculate usable dimensions for the grid
+property usableWidth : screenWidth - screenPaddingLeft - screenPaddingRight
+property usableHeight : screenHeight - screenPaddingTop - screenPaddingBottom
+
+-- Calculate individual cell dimensions using integer division (div) to prevent decimal errors
+property cellWidth : (usableWidth - gridGapX) div 2
+property cellHeight : (usableHeight - gridGapY) div 2
+
+-- Helper to calculate X position for a given column (1-indexed)
+on getXPosition(colIndex)
+	return screenPaddingLeft + ((colIndex - 1) * (cellWidth + gridGapX))
+end getXPosition
+
+-- Helper to calculate Y position for a given row (1-indexed)
+on getYPosition(rowIndex)
+	return screenPaddingTop + ((rowIndex - 1) * (cellHeight + gridGapY))
+end getYPosition
+
+
+tell application "System Events"
+
+	-- --- Music: Top-Left Cell (Row 1, Column 1) ---
+	set musicX to my getXPosition(1)
+	set musicY to my getYPosition(1)
+	try
+		activate application "Music"
+		tell process "Music"
+			tell window 1
+				set position to {musicX, musicY}
+				set size to {cellWidth, cellHeight}
+			end tell
+		end tell
+	on error errMsg
+		display notification "Could not arrange Music: " & errMsg with title "AppleScript Error"
+	end try
+
+	-- --- Photos: Top-Right Cell (Row 1, Column 2) ---
+	set photosX to my getXPosition(2)
+	set photosY to my getYPosition(1)
+	try
+		activate application "Photos"
+		tell process "Photos"
+			tell window 1
+				set position to {photosX, photosY}
+				set size to {cellWidth, cellHeight}
+			end tell
+		end tell
+	on error errMsg
+		display notification "Could not arrange Photos: " & errMsg with title "AppleScript Error"
+	end try
+
+	-- --- TV: Bottom-Left Cell (Row 2, Column 1) ---
+	set tvX to my getXPosition(1)
+	set tvY to my getYPosition(2)
+	try
+		activate application "TV"
+		tell process "TV"
+			tell window 1
+				set position to {tvX, tvY}
+				set size to {cellWidth, cellHeight}
+			end tell
+		end tell
+	on error errMsg
+		display notification "Could not arrange TV: " & errMsg with title "AppleScript Error"
+	end try
+
+	-- --- Voice Memos: Bottom-Right Cell (Row 2, Column 2) ---
+	set voiceMemosX to my getXPosition(2)
+	set voiceMemosY to my getYPosition(2)
+	try
+		-- Use the bundle name "VoiceMemos" (no space) — inside a System Events
+		-- tell block, the display name "Voice Memos" fails to resolve.
+		activate application "VoiceMemos"
+		tell process "VoiceMemos"
+			tell window 1
+				set position to {voiceMemosX, voiceMemosY}
+				set size to {cellWidth, cellHeight}
+			end tell
+		end tell
+	on error errMsg
+		display notification "Could not arrange Voice Memos: " & errMsg with title "AppleScript Error"
+	end try
+
 end tell
